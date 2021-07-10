@@ -1,31 +1,46 @@
 package banking
 
 import banking.dto.AccountsDto
+import banking.dto.AccountsResponse
 import grails.gorm.transactions.Transactional
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-
-import javax.persistence.Id
+import org.springframework.validation.Errors
 
 @Transactional
 class AccountService {
 
-    AccountsDto createNewAccount(AccountsDto accounts){
+    AccountsResponse createNewAccount(AccountsDto accounts){
+        if(getAccountByAcctNumber(accounts.account_number)!=null){   // account already exist
+            return null
+        }
         Accounts acc = new Accounts()
-        acc.setAccount_name(accounts.getAccount_name())
-        acc.setAccount_number(accounts.getAccount_number())
-        acc.setDescription(accounts.getDescription())
-        acc.save()
+        acc = setAccountsDataInDB(acc,accounts)
+        AccountsResponse response = new AccountsResponse()
+        response = setResponse(response, acc)
+        return response
+    }
+
+    AccountsResponse updateAccount(AccountsDto accountsDto, Serializable id){
+        Accounts acc = Accounts.get(id)
+        acc = setAccountsDataInDB(acc,accountsDto)
+        AccountsResponse response = new AccountsResponse()
+        response = setResponse(response, acc)
+        return response
+    }
+
+    Accounts setAccountsDataInDB(Accounts accounts, AccountsDto dto){
+        accounts.setAccount_name(dto.getAccount_name())
+        accounts.setAccount_number(dto.getAccount_number())
+        accounts.setDescription(dto.getDescription())
+        accounts.save()
         return accounts
     }
 
-    AccountsDto updateAccount(AccountsDto accounts, Serializable id){
-        Accounts acc = Accounts.get(id)
-        acc.setAccount_name(accounts.getAccount_name())
-        acc.setAccount_number(accounts.getAccount_number())
-        acc.setDescription(accounts.getDescription())
-        acc.save()
-        return accounts
+    AccountsResponse setResponse(AccountsResponse res, Accounts accounts){
+        res.setDescription(accounts.description)
+        res.setAccount_number(accounts.account_number)
+        res.setAccount_name(accounts.account_name)
+        res.setId(accounts.id)
+        return res
     }
 
     List<Accounts> list(Map args){

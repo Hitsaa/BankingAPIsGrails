@@ -1,6 +1,7 @@
 package banking
 
 import banking.dto.AccountsDto
+import banking.dto.AccountsResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestBody
@@ -11,7 +12,7 @@ class AccountsController {
     AccountService accountService
     static responseFormats = ['json']
 
-    ResponseEntity<AccountsDto> createAccount(@RequestBody AccountsDto accounts){
+    ResponseEntity<AccountsResponse> createAccount(@RequestBody AccountsDto accounts){
         try{
             respond ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -24,7 +25,7 @@ class AccountsController {
         }
     }
 
-    ResponseEntity<AccountsDto> updateAccount(@RequestBody AccountsDto accounts){
+    ResponseEntity<AccountsResponse> updateAccount(@RequestBody AccountsDto accounts){
         try{
             respond ResponseEntity
                     .status(HttpStatus.CREATED)
