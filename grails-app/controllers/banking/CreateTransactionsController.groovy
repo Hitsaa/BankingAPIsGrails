@@ -18,4 +18,20 @@ class CreateTransactionsController {
         }
     }
 
+    def getAllTransactions(){
+        try{
+            respond createTransactionsService.getAllTransactions()
+        }catch(Exception e){
+            respond e.stackTrace
+        }
+    }
+
+    def getTransactionsById(){
+        try{
+            respond createTransactionsService.getTransactionsById(params.id)
+        }catch(Exception e){
+            respond e.stackTrace
+        }
+    }
+
 }

@@ -57,7 +57,8 @@ class AccountService {
     }
 
     def getTransactionsByAccountId(Serializable id){
-        return Accounts.get(id).getTransactions()
+//        return Accounts.get(id).getTransactions()
+        return Accounts.get(id).getTxns()
     }
 
 }

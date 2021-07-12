@@ -79,4 +79,8 @@ class AccountsController {
         }
     }
 
+    def getTransactionsByAccId(){
+        respond accountService.getTransactionsByAccountId(params.id)
+    }
+
 }

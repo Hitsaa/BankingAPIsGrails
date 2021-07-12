@@ -18,11 +18,14 @@ class UrlMappings {
             patch "/patch/$id(.$format)?"(action: 'patch', controller: "accounts")
 //            get "/$id/transactions(.$format)?"(action:'getTransactions', controller: 'accounts')
             post "/$id/transactions(.$format)?"(action:'createTransactions', controller: 'createTransactions')
+            get "/$id/transactions(.$format)?"(action:'getTransactionsByAccId', controller: 'accounts')
         }
 
         group "/transactions",{
             post "/other/$id(.$format)?"(action:'otherAccountTransaction', controller: 'transactions')
             post "/self(.$format)?"(action:'selfAccountTransaction', controller: 'transactions')
+            get "(.$format)?"(action:'getAllTransactions', controller: 'createTransactions')
+            get "/$id(.$format)?"(action:'getTransactionsById', controller: 'createTransactions')
         }
 
 //        "/"(view:"/index")

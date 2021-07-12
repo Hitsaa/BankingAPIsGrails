@@ -39,4 +39,11 @@ class CreateTransactionsService {
         return txn_response
     }
 
+    List<CreateTransactions> getAllTransactions(){
+        return CreateTransactions.findAll()
+    }
+
+    CreateTransactions getTransactionsById(Serializable id){
+        return CreateTransactions.get(id)
+    }
 }
