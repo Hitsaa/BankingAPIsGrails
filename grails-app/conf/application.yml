@@ -38,11 +38,6 @@ management:
 grails:
     cors:
         enabled: true
-        mappings:
-            /**:
-                allowedOrigins:
-                    allowedHeaders:
-                        allowedMethods:
     mime:
         disable:
             accept:
