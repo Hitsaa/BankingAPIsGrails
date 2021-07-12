@@ -14,9 +14,10 @@ class AccountsController {
 
     ResponseEntity<AccountsResponse> createAccount(@RequestBody AccountsDto accounts){
         try{
-            respond ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(accountService.createNewAccount(accounts))
+//            respond ResponseEntity
+//                    .status(HttpStatus.CREATED)
+//                    .body(accountService.createNewAccount(accounts))
+            respond accountService.createNewAccount(accounts)
         }catch(Exception e){
             println("Exception occurred")
             respond ResponseEntity
@@ -27,9 +28,10 @@ class AccountsController {
 
     ResponseEntity<AccountsResponse> updateAccount(@RequestBody AccountsDto accounts){
         try{
-            respond ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(accountService.updateAccount(accounts,params.id))
+//            respond ResponseEntity
+//                    .status(HttpStatus.CREATED)
+//                    .body(accountService.updateAccount(accounts,params.id))
+            respond accountService.updateAccount(accounts,params.id)
         }catch(Exception e){
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -39,9 +41,10 @@ class AccountsController {
 
     ResponseEntity<List<Accounts>> getAllAccounts(){
         try{
-            respond ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(accountService.list(params))
+//            respond ResponseEntity
+//                    .status(HttpStatus.CREATED)
+//                    .body(accountService.list(params))
+            respond accountService.list(params)
 
         }catch(Exception e){
             respond ResponseEntity
@@ -52,9 +55,10 @@ class AccountsController {
 
     ResponseEntity<Accounts> getAccount(Long id){
         try{
-            respond ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(accountService.getAccountById(id))
+//            respond ResponseEntity
+//                    .status(HttpStatus.CREATED)
+//                    .body(accountService.getAccountById(id))
+            respond accountService.getAccountById(id)
         }catch(Exception e){
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -64,9 +68,10 @@ class AccountsController {
 
     ResponseEntity<Set<Transactions>> getTransactions(Long id){
         try{
-            respond ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(accountService.getTransactionsByAccountId(id))
+//            respond ResponseEntity
+//                    .status(HttpStatus.CREATED)
+//                    .body(accountService.getTransactionsByAccountId(id))
+            respond accountService.getTransactionsByAccountId(id)
         }catch(Exception e){
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)

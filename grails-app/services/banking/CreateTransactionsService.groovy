@@ -1,0 +1,42 @@
+package banking
+
+import banking.dto.CreateTransactionsDto
+import banking.dto.CreateTransactionsResponse
+import grails.gorm.transactions.Transactional
+
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+@Transactional
+class CreateTransactionsService {
+
+    CreateTransactionsResponse createTransactions(CreateTransactionsDto txn_dto, Serializable id){
+        LocalDateTime time = LocalDateTime.now()
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        String txn_number = time.format(format)
+
+        CreateTransactions txn_obj = new CreateTransactions()
+        txn_obj.setAmount(txn_dto.amount)
+        txn_obj.setTxnType(txn_dto.txnType)
+        txn_obj.setTxn_number(txn_number)
+        txn_obj.save()
+
+        Accounts user_acc = Accounts.get(id)
+
+        user_acc.addToTxns(txn_obj)
+        user_acc.save(flush:true)
+
+        CreateTransactionsResponse txn_response = new CreateTransactionsResponse()
+        txn_response = setTxnResponse(txn_response,txn_obj)
+        return txn_response
+    }
+
+    CreateTransactionsResponse setTxnResponse(CreateTransactionsResponse txn_response, CreateTransactions txn_obj){
+        txn_response.setId(txn_obj.id)
+        txn_response.setTxn_number(txn_obj.txn_number)
+        txn_response.setTxnType(txn_obj.txnType)
+        txn_response.setAmount(txn_obj.amount)
+        return txn_response
+    }
+
+}

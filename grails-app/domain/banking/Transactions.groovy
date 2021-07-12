@@ -14,7 +14,7 @@ class Transactions {
     String sender_acct_number
     String receiver_acct_number
 
-    static belongsTo = [accounts:Accounts]
+//    static belongsTo = [accounts:Accounts]
 
     static constraints = {
         amount nullable: false

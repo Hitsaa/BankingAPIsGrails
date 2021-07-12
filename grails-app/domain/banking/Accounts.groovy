@@ -5,7 +5,8 @@ class Accounts {
     String account_name
     String description
     BigDecimal account_balance = BigDecimal.ZERO
-    static hasMany =  [transactions:Transactions]
+//    static hasMany =  [transactions:Transactions]
+    static hasMany = [txns: CreateTransactions]
 
     static constraints = {
         account_number nullable: false, unique: true

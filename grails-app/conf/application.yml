@@ -111,7 +111,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: update
+            dbCreate: create-drop
     test:
         dataSource:
             dbCreate: update

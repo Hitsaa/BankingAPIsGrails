@@ -16,7 +16,8 @@ class UrlMappings {
             post "(.$format)?"(action: 'createAccount',controller:"accounts")
             put "/update/$id(.$format)?"(action: 'updateAccount', controller: "accounts")
             patch "/patch/$id(.$format)?"(action: 'patch', controller: "accounts")
-            get "/$id/transactions(.$format)?"(action:'getTransactions', controller: 'accounts')
+//            get "/$id/transactions(.$format)?"(action:'getTransactions', controller: 'accounts')
+            post "/$id/transactions(.$format)?"(action:'createTransactions', controller: 'createTransactions')
         }
 
         group "/transactions",{
