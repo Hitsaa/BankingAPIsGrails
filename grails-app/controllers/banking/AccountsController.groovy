@@ -12,12 +12,16 @@ class AccountsController {
     AccountService accountService
     static responseFormats = ['json']
 
-    ResponseEntity<AccountsResponse> createAccount(@RequestBody AccountsDto accounts){
+    def createAccount(@RequestBody AccountsDto accounts){
         try{
 //            respond ResponseEntity
 //                    .status(HttpStatus.CREATED)
 //                    .body(accountService.createNewAccount(accounts))
-            respond accountService.createNewAccount(accounts)
+            def res = accountService.createNewAccount(accounts)
+            if(res != null)
+                respond res
+            else
+                respond (error:"Account already exist")
         }catch(Exception e){
             println("Exception occurred")
             respond ResponseEntity
@@ -31,7 +35,13 @@ class AccountsController {
 //            respond ResponseEntity
 //                    .status(HttpStatus.CREATED)
 //                    .body(accountService.updateAccount(accounts,params.id))
-            respond accountService.updateAccount(accounts,params.id)
+            def res = accountService.updateAccount(accounts,params.id)
+            if(res!=null){
+                respond res
+            }
+            else{
+                respond (error:"Account Id is not valid.")
+            }
         }catch(Exception e){
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -58,7 +68,13 @@ class AccountsController {
 //            respond ResponseEntity
 //                    .status(HttpStatus.CREATED)
 //                    .body(accountService.getAccountById(id))
-            respond accountService.getAccountById(id)
+            def res = accountService.getAccountById(id)
+            if(res !=null){
+                respond res
+            }
+            else{
+                respond(error:"Account id is not valid")
+            }
         }catch(Exception e){
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -71,7 +87,13 @@ class AccountsController {
 //            respond ResponseEntity
 //                    .status(HttpStatus.CREATED)
 //                    .body(accountService.getTransactionsByAccountId(id))
-            respond accountService.getTransactionsByAccountId(id)
+            def res = accountService.getTransactionsByAccountId(id)
+            if(res != null){
+                respond res
+            }
+            else{
+                respond (error:"Account id is not valid")
+            }
         }catch(Exception e){
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -80,7 +102,20 @@ class AccountsController {
     }
 
     def getTransactionsByAccId(){
-        respond accountService.getTransactionsByAccountId(params.id)
+        try {
+            def res = accountService.getTransactionsByAccountId(params.id)
+            if(res !=null){
+                respond res
+            }
+            else{
+                respond (error:"Id is not valid")
+            }
+
+        }catch(Exception e){
+            respond ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.stackTrace)
+        }
     }
 
 }

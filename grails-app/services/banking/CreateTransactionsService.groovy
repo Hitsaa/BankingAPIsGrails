@@ -11,6 +11,10 @@ import java.time.format.DateTimeFormatter
 class CreateTransactionsService {
 
     CreateTransactionsResponse createTransactions(CreateTransactionsDto txn_dto, Serializable id){
+        Accounts user_acc = Accounts.get(id)
+        if(user_acc == null){
+            return null
+        }
         LocalDateTime time = LocalDateTime.now()
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String txn_number = time.format(format)
@@ -18,10 +22,8 @@ class CreateTransactionsService {
         CreateTransactions txn_obj = new CreateTransactions()
         txn_obj.setAmount(txn_dto.amount)
         txn_obj.setTxnType(txn_dto.txnType)
-        txn_obj.setTxn_number(txn_number)
+        txn_obj.setTxnNumber(txn_number)
         txn_obj.save()
-
-        Accounts user_acc = Accounts.get(id)
 
         user_acc.addToTxns(txn_obj)
         user_acc.save(flush:true)
@@ -33,7 +35,7 @@ class CreateTransactionsService {
 
     CreateTransactionsResponse setTxnResponse(CreateTransactionsResponse txn_response, CreateTransactions txn_obj){
         txn_response.setId(txn_obj.id)
-        txn_response.setTxn_number(txn_obj.txn_number)
+        txn_response.setTxnNumber(txn_obj.txnNumber)
         txn_response.setTxnType(txn_obj.txnType)
         txn_response.setAmount(txn_obj.amount)
         return txn_response

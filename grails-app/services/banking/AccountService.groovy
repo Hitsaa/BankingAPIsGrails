@@ -3,13 +3,12 @@ package banking
 import banking.dto.AccountsDto
 import banking.dto.AccountsResponse
 import grails.gorm.transactions.Transactional
-import org.springframework.validation.Errors
 
 @Transactional
 class AccountService {
 
     AccountsResponse createNewAccount(AccountsDto accounts){
-        if(getAccountByAcctNumber(accounts.account_number)!=null){   // account already exist
+        if(getAccountByAcctNumber(accounts.accountNumber)!=null){   // account already exist
             return null
         }
         Accounts acc = new Accounts()
@@ -21,6 +20,9 @@ class AccountService {
 
     AccountsResponse updateAccount(AccountsDto accountsDto, Serializable id){
         Accounts acc = Accounts.get(id)
+        if(acc == null){
+            return null
+        }
         acc = setAccountsDataInDB(acc,accountsDto)
         AccountsResponse response = new AccountsResponse()
         response = setResponse(response, acc)
@@ -28,8 +30,8 @@ class AccountService {
     }
 
     Accounts setAccountsDataInDB(Accounts accounts, AccountsDto dto){
-        accounts.setAccount_name(dto.getAccount_name())
-        accounts.setAccount_number(dto.getAccount_number())
+        accounts.setAccount_name(dto.getAccountName())
+        accounts.setAccount_number(dto.getAccountNumber())
         accounts.setDescription(dto.getDescription())
         accounts.save()
         return accounts
@@ -37,8 +39,8 @@ class AccountService {
 
     AccountsResponse setResponse(AccountsResponse res, Accounts accounts){
         res.setDescription(accounts.description)
-        res.setAccount_number(accounts.account_number)
-        res.setAccount_name(accounts.account_name)
+        res.setAccountNumber(accounts.account_number)
+        res.setAccountName(accounts.account_name)
         res.setId(accounts.id)
         return res
     }
@@ -58,7 +60,11 @@ class AccountService {
 
     def getTransactionsByAccountId(Serializable id){
 //        return Accounts.get(id).getTransactions()
-        return Accounts.get(id).getTxns()
+        Accounts acc = Accounts.get(id)
+        if(acc == null){
+            return null
+        }
+        return acc.getTxns()
     }
 
 }

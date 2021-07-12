@@ -3,7 +3,7 @@ package banking
 class CreateTransactions {
 
 
-    String txn_number
+    String txnNumber
     BigDecimal amount
     String txnType
 
@@ -12,6 +12,6 @@ class CreateTransactions {
     static constraints = {
         amount nullable: false
         txnType nullable: false
-        txn_number nullable: false
+        txnNumber nullable: false
     }
 }

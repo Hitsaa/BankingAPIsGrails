@@ -4,7 +4,7 @@ import grails.validation.Validateable
 
 class CreateTransactionsResponse {
     Long id
-    String txn_number
+    String txnNumber
     BigDecimal amount
     String txnType
 }
