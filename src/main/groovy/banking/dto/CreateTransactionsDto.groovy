@@ -2,7 +2,7 @@ package banking.dto
 
 import grails.validation.Validateable
 
-class CreateTransactionsDto {
+class CreateTransactionsDto implements Validateable {
     BigDecimal amount
     String txnType
 }

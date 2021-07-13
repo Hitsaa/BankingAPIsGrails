@@ -23,6 +23,7 @@ class CreateTransactionsService {
         txn_obj.setAmount(txn_dto.amount)
         txn_obj.setTxnType(txn_dto.txnType)
         txn_obj.setTxnNumber(txn_number)
+        txn_obj.setCreatedOn(time.toString())
         txn_obj.save()
 
         user_acc.addToTxns(txn_obj)
@@ -38,6 +39,7 @@ class CreateTransactionsService {
         txn_response.setTxnNumber(txn_obj.txnNumber)
         txn_response.setTxnType(txn_obj.txnType)
         txn_response.setAmount(txn_obj.amount)
+        txn_response.setCreatedOn(txn_obj.createdOn)
         return txn_response
     }
 

@@ -1,6 +1,8 @@
 package banking.dto
 
-class AccountsResponse {
+import grails.validation.Validateable
+
+class AccountsResponse implements Validateable {
 
     Long id
     String accountNumber
