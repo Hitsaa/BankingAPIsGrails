@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestBody
 
+import javax.servlet.http.HttpServletResponse
+
 class CreateTransactionsController {
 
     CreateTransactionsService createTransactionsService
@@ -18,7 +20,7 @@ class CreateTransactionsController {
                 respond res
             }
             else{
-                respond (error:"Id is not valid or check body parameters")
+                render(status: HttpServletResponse.SC_NOT_FOUND)
             }
         }catch(Exception e){
             respond ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.stackTrace)
@@ -40,7 +42,7 @@ class CreateTransactionsController {
                 respond res
             }
             else{
-                respond (error:"Id is not valid")
+                render(status:HttpServletResponse.SC_NOT_FOUND)
             }
         }catch(Exception e){
             respond e.stackTrace

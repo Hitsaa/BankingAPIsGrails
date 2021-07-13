@@ -1,16 +1,16 @@
 package banking
 
 class Accounts {
-    String account_number
-    String account_name
+    String accountNumber
+    String accountName
     String description
-    BigDecimal account_balance = BigDecimal.ZERO
+    BigDecimal accountBalance = BigDecimal.ZERO
 //    static hasMany =  [transactions:Transactions]
     static hasMany = [txns: CreateTransactions]
 
     static constraints = {
-        account_number nullable: false, unique: true
-        account_name nullable: false
+        accountNumber nullable: false, unique: true
+        accountName nullable: false
         description nullable: true
     }
 }

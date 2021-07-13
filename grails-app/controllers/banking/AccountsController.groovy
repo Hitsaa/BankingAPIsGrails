@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestBody
 
+import javax.servlet.http.HttpServletResponse
+
 class AccountsController {
 
 //    AccountImplService accountImplService
@@ -21,9 +23,8 @@ class AccountsController {
             if(res != null)
                 respond res
             else
-                respond (error:"Account already exist")
+                render(status:HttpServletResponse.SC_BAD_REQUEST)
         }catch(Exception e){
-            println("Exception occurred")
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(e.stackTrace)
@@ -40,7 +41,7 @@ class AccountsController {
                 respond res
             }
             else{
-                respond (error:"Account Id is not valid.")
+                render(status:HttpServletResponse.SC_NOT_FOUND)
             }
         }catch(Exception e){
             respond ResponseEntity
@@ -73,7 +74,7 @@ class AccountsController {
                 respond res
             }
             else{
-                respond(error:"Account id is not valid")
+                render(status:HttpServletResponse.SC_NOT_FOUND)
             }
         }catch(Exception e){
             respond ResponseEntity
@@ -92,7 +93,7 @@ class AccountsController {
                 respond res
             }
             else{
-                respond (error:"Account id is not valid")
+                render(status:HttpServletResponse.SC_NOT_FOUND)
             }
         }catch(Exception e){
             respond ResponseEntity
@@ -108,7 +109,7 @@ class AccountsController {
                 respond res
             }
             else{
-                respond (error:"Id is not valid")
+                render(status:HttpServletResponse.SC_NOT_FOUND)
             }
 
         }catch(Exception e){

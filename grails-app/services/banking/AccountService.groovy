@@ -2,6 +2,7 @@ package banking
 
 import banking.dto.AccountsDto
 import banking.dto.AccountsResponse
+import banking.dto.CreateTransactionsResponse
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -30,8 +31,8 @@ class AccountService {
     }
 
     Accounts setAccountsDataInDB(Accounts accounts, AccountsDto dto){
-        accounts.setAccount_name(dto.getAccountName())
-        accounts.setAccount_number(dto.getAccountNumber())
+        accounts.setAccountName(dto.getAccountName())
+        accounts.setAccountNumber(dto.getAccountNumber())
         accounts.setDescription(dto.getDescription())
         accounts.save()
         return accounts
@@ -39,8 +40,8 @@ class AccountService {
 
     AccountsResponse setResponse(AccountsResponse res, Accounts accounts){
         res.setDescription(accounts.description)
-        res.setAccountNumber(accounts.account_number)
-        res.setAccountName(accounts.account_name)
+        res.setAccountNumber(accounts.accountNumber)
+        res.setAccountName(accounts.accountName)
         res.setId(accounts.id)
         return res
     }
@@ -54,17 +55,18 @@ class AccountService {
     }
 
     Accounts getAccountByAcctNumber(String acct_number){
-        Accounts acc = Accounts.findByAccount_number(acct_number)
+        Accounts acc = Accounts.findByAccountNumber(acct_number)
         return acc
     }
 
     def getTransactionsByAccountId(Serializable id){
 //        return Accounts.get(id).getTransactions()
         Accounts acc = Accounts.get(id)
+
         if(acc == null){
             return null
         }
+
         return acc.getTxns()
     }
-
 }
