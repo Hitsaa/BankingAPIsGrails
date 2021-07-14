@@ -2,7 +2,7 @@ package banking
 
 import java.time.LocalDateTime
 
-class CreateTransactions {
+class AccountTransactions {
 
 
     String txnNumber

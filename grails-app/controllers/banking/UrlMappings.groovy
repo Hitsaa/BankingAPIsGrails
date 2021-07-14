@@ -17,15 +17,15 @@ class UrlMappings {
             put "/update/$id(.$format)?"(action: 'updateAccount', controller: "accounts")
             patch "/patch/$id(.$format)?"(action: 'patch', controller: "accounts")
 //            get "/$id/transactions(.$format)?"(action:'getTransactions', controller: 'accounts')
-            post "/$id/transactions(.$format)?"(action:'createTransactions', controller: 'createTransactions')
+            post "/$id/transactions(.$format)?"(action:'createTransactions', controller: 'accountTransactions')
             get "/$id/transactions(.$format)?"(action:'getTransactionsByAccId', controller: 'accounts')
         }
 
         group "/transactions",{
             post "/other/$id(.$format)?"(action:'otherAccountTransaction', controller: 'transactions')
             post "/self(.$format)?"(action:'selfAccountTransaction', controller: 'transactions')
-            get "(.$format)?"(action:'getAllTransactions', controller: 'createTransactions')
-            get "/$id(.$format)?"(action:'getTransactionsById', controller: 'createTransactions')
+            get "(.$format)?"(action:'getAllTransactions', controller: 'accountTransactions')
+            get "/$id(.$format)?"(action:'getTransactionsById', controller: 'accountTransactions')
         }
 
 //        "/"(view:"/index")

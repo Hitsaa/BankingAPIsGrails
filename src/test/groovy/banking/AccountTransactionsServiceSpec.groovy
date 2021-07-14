@@ -3,7 +3,7 @@ package banking
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
-class CreateTransactionsServiceSpec extends Specification implements ServiceUnitTest<CreateTransactionsService>{
+class AccountTransactionsServiceSpec extends Specification implements ServiceUnitTest<AccountTransactionsService>{
 
     def setup() {
     }

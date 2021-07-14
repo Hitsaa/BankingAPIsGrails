@@ -3,7 +3,7 @@ package banking
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class CreateTransactionsSpec extends Specification implements DomainUnitTest<CreateTransactions> {
+class AccountTransactionsSpec extends Specification implements DomainUnitTest<AccountTransactions> {
 
     def setup() {
     }

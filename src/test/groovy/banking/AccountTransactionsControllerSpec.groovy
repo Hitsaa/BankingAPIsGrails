@@ -3,7 +3,7 @@ package banking
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class CreateTransactionsControllerSpec extends Specification implements ControllerUnitTest<CreateTransactionsController> {
+class AccountTransactionsControllerSpec extends Specification implements ControllerUnitTest<AccountTransactionsController> {
 
     def setup() {
     }

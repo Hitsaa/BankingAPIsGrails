@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody
 
 import javax.servlet.http.HttpServletResponse
 
-class CreateTransactionsController {
+class AccountTransactionsController {
 
-    CreateTransactionsService createTransactionsService
+    AccountTransactionsService accountTransactionsService
     static responseFormats = ['json']
 
     ResponseEntity<CreateTransactionsResponse> createTransactions(@RequestBody CreateTransactionsDto txn_dto){
         try{
-            def res = createTransactionsService.createTransactions(txn_dto, params.id)
+            def res = accountTransactionsService.createTransactions(txn_dto, params.id)
             if(res != null){
                 respond res
             }
@@ -29,7 +29,7 @@ class CreateTransactionsController {
 
     def getAllTransactions(){
         try{
-            respond createTransactionsService.getAllTransactions()
+            respond accountTransactionsService.getAllTransactions()
         }catch(Exception e){
             respond e.stackTrace
         }
@@ -37,7 +37,7 @@ class CreateTransactionsController {
 
     def getTransactionsById(){
         try{
-            def res = createTransactionsService.getTransactionsById(params.id)
+            def res = accountTransactionsService.getTransactionsById(params.id)
             if(res != null){
                 respond res
             }

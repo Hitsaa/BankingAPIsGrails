@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Transactional
-class CreateTransactionsService {
+class AccountTransactionsService {
 
     CreateTransactionsResponse createTransactions(CreateTransactionsDto txn_dto, Serializable id){
         Accounts user_acc = Accounts.get(id)
@@ -19,7 +19,7 @@ class CreateTransactionsService {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String txn_number = time.format(format)
 
-        CreateTransactions txn_obj = new CreateTransactions()
+        AccountTransactions txn_obj = new AccountTransactions()
         txn_obj.setAmount(txn_dto.amount)
         txn_obj.setTxnType(txn_dto.txnType)
         txn_obj.setTxnNumber(txn_number)
@@ -34,7 +34,7 @@ class CreateTransactionsService {
         return txn_response
     }
 
-    CreateTransactionsResponse setTxnResponse(CreateTransactionsResponse txn_response, CreateTransactions txn_obj){
+    CreateTransactionsResponse setTxnResponse(CreateTransactionsResponse txn_response, AccountTransactions txn_obj){
         txn_response.setId(txn_obj.id)
         txn_response.setTxnNumber(txn_obj.txnNumber)
         txn_response.setTxnType(txn_obj.txnType)
@@ -43,11 +43,11 @@ class CreateTransactionsService {
         return txn_response
     }
 
-    List<CreateTransactions> getAllTransactions(){
-        return CreateTransactions.findAll()
+    List<AccountTransactions> getAllTransactions(){
+        return AccountTransactions.findAll()
     }
 
-    CreateTransactions getTransactionsById(Serializable id){
-        return CreateTransactions.get(id)
+    AccountTransactions getTransactionsById(Serializable id){
+        return AccountTransactions.get(id)
     }
 }
