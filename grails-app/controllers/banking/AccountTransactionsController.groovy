@@ -14,6 +14,10 @@ class AccountTransactionsController {
     static responseFormats = ['json']
 
     ResponseEntity<CreateTransactionsResponse> createTransactions(@RequestBody CreateTransactionsDto txn_dto){
+        if(txn_dto.hasErrors()){
+            render(status:HttpStatus.UNPROCESSABLE_ENTITY)
+            return
+        }
         try{
             def res = accountTransactionsService.createTransactions(txn_dto, params.id)
             if(res != null){

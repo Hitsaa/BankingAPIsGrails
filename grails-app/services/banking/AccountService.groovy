@@ -54,7 +54,7 @@ class AccountService {
         return Accounts.get(id)
     }
 
-    Accounts getAccountByAcctNumber(String acct_number){
+    Accounts getAccountByAcctNumber(BigInteger acct_number){
         Accounts acc = Accounts.findByAccountNumber(acct_number)
         return acc
     }

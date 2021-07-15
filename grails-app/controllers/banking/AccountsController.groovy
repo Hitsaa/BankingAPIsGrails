@@ -15,6 +15,10 @@ class AccountsController {
     static responseFormats = ['json']
 
     def createAccount(@RequestBody AccountsDto accounts){
+        if(accounts.hasErrors()){
+            render(status:HttpStatus.UNPROCESSABLE_ENTITY)
+            return;
+        }
         try{
 //            respond ResponseEntity
 //                    .status(HttpStatus.CREATED)
@@ -22,8 +26,10 @@ class AccountsController {
             def res = accountService.createNewAccount(accounts)
             if(res != null)
                 respond res
-            else
+            else{
                 render(status:HttpServletResponse.SC_BAD_REQUEST)
+                return;
+            }
         }catch(Exception e){
             respond ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -32,6 +38,10 @@ class AccountsController {
     }
 
     ResponseEntity<AccountsResponse> updateAccount(@RequestBody AccountsDto accounts){
+        if(accounts.hasErrors()){
+            render(status:HttpStatus.UNPROCESSABLE_ENTITY)
+            return;
+        }
         try{
 //            respond ResponseEntity
 //                    .status(HttpStatus.CREATED)

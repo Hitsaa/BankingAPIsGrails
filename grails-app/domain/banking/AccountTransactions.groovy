@@ -13,9 +13,9 @@ class AccountTransactions {
     static belongsTo = [accounts:Accounts]
 
     static constraints = {
-        amount nullable: false
-        txnType nullable: false
-        txnNumber nullable: false
+        amount nullable: false, blank:false
+        txnType nullable: false, blank: false, inList: ["Cr", "Dr"]
+        txnNumber nullable: false, blank: false
 
     }
 }

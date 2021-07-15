@@ -5,7 +5,7 @@ import grails.validation.Validateable
 class AccountsResponse implements Validateable {
 
     Long id
-    String accountNumber
+    BigInteger accountNumber
     String accountName
     String description
 }
