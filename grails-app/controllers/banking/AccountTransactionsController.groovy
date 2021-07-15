@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse
 class AccountTransactionsController {
 
     AccountTransactionsService accountTransactionsService
+    ErrorService errorService
     static responseFormats = ['json']
 
     ResponseEntity<CreateTransactionsResponse> createTransactions(@RequestBody CreateTransactionsDto txn_dto){
         if(txn_dto.hasErrors()){
-            render(status:HttpStatus.UNPROCESSABLE_ENTITY)
-            return
+            response.status = 422
+            def err = errorService.setErrorResponse(txn_dto.errors)
+            respond (errors:err)
         }
         try{
             def res = accountTransactionsService.createTransactions(txn_dto, params.id)

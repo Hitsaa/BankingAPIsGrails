@@ -2,6 +2,7 @@ package banking
 
 import banking.dto.AccountsDto
 import banking.dto.AccountsResponse
+import grails.converters.JSON
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestBody
@@ -12,12 +13,16 @@ class AccountsController {
 
 //    AccountImplService accountImplService
     AccountService accountService
+    ErrorService errorService
+
     static responseFormats = ['json']
 
     def createAccount(@RequestBody AccountsDto accounts){
         if(accounts.hasErrors()){
-            render(status:HttpStatus.UNPROCESSABLE_ENTITY)
-            return;
+//            render(status:HttpStatus.UNPROCESSABLE_ENTITY)
+            response.status = 422
+            def err = errorService.setErrorResponse(accounts.errors)
+            respond (errors:err)
         }
         try{
 //            respond ResponseEntity
@@ -39,8 +44,9 @@ class AccountsController {
 
     ResponseEntity<AccountsResponse> updateAccount(@RequestBody AccountsDto accounts){
         if(accounts.hasErrors()){
-            render(status:HttpStatus.UNPROCESSABLE_ENTITY)
-            return;
+            response.status = 422
+            def err = errorService.setErrorResponse(accounts.errors)
+            respond (errors:err)
         }
         try{
 //            respond ResponseEntity
