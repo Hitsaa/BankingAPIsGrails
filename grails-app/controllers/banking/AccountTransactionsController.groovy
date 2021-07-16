@@ -26,7 +26,8 @@ class AccountTransactionsController {
                 respond res
             }
             else{
-                render(status: HttpServletResponse.SC_NOT_FOUND)
+                response.status = 404
+                respond(error:"No transaction because account does not exist!")
             }
         }catch(Exception e){
             respond ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.stackTrace)
@@ -48,7 +49,8 @@ class AccountTransactionsController {
                 respond res
             }
             else{
-                render(status:HttpServletResponse.SC_NOT_FOUND)
+                response.status = 404
+                respond(error:"Please enter valid transaction id!")
             }
         }catch(Exception e){
             respond e.stackTrace

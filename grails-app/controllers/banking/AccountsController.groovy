@@ -32,8 +32,8 @@ class AccountsController {
             if(res != null)
                 respond res
             else{
-                render(status:HttpServletResponse.SC_BAD_REQUEST)
-                return;
+                response.status = 400
+                respond(error:"Account Already exist!")
             }
         }catch(Exception e){
             respond ResponseEntity
@@ -57,7 +57,8 @@ class AccountsController {
                 respond res
             }
             else{
-                render(status:HttpServletResponse.SC_NOT_FOUND)
+                response.status = 404
+                respond(error:"Account does not exist!")
             }
         }catch(Exception e){
             respond ResponseEntity
@@ -90,7 +91,8 @@ class AccountsController {
                 respond res
             }
             else{
-                render(status:HttpServletResponse.SC_NOT_FOUND)
+                response.status = 404
+                respond(error:"Account does not exist!")
             }
         }catch(Exception e){
             respond ResponseEntity
@@ -125,7 +127,8 @@ class AccountsController {
                 respond res
             }
             else{
-                render(status:HttpServletResponse.SC_NOT_FOUND)
+                response.status = 404
+                respond(error:"Account does not exist! Please enter valid account id!")
             }
 
         }catch(Exception e){

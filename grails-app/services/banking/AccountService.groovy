@@ -8,6 +8,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class AccountService {
 
+    AccountTransactionsService accountTransactionsService
+
     AccountsResponse createNewAccount(AccountsDto accounts){
         if(getAccountByAcctNumber(accounts.accountNumber)!=null){   // account already exist
             return null
@@ -66,7 +68,13 @@ class AccountService {
         if(acc == null){
             return null
         }
+        List<CreateTransactionsResponse> res = new ArrayList<CreateTransactionsResponse>()
+        acc.getTxns().each {AccountTransactions txn_obj ->
+            CreateTransactionsResponse txn_res = new CreateTransactionsResponse()
+            txn_res = accountTransactionsService.setTxnResponse(txn_res,txn_obj)
+            res.add(txn_res)
+        }
 
-        return acc.getTxns()
+        return res
     }
 }

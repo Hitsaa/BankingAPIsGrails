@@ -4,19 +4,21 @@ import banking.dto.CreateTransactionsDto
 import banking.dto.CreateTransactionsResponse
 import grails.gorm.transactions.Transactional
 
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Transactional
 class AccountTransactionsService {
 
+    String pattern = "yyyyMMddHHmmssSSSSSSSSS"
     CreateTransactionsResponse createTransactions(CreateTransactionsDto txn_dto, Serializable id){
         Accounts user_acc = Accounts.get(id)
         if(user_acc == null){
             return null
         }
         LocalDateTime time = LocalDateTime.now()
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(pattern);
         String txn_number = time.format(format)
 
         AccountTransactions txn_obj = new AccountTransactions()
@@ -39,8 +41,17 @@ class AccountTransactionsService {
         txn_response.setTxnNumber(txn_obj.txnNumber)
         txn_response.setTxnType(txn_obj.txnType)
         txn_response.setAmount(txn_obj.amount)
-        txn_response.setCreatedOn(txn_obj.createdOn)
+
+        def createdOn = parseDate(txn_obj.txnNumber)
+        txn_response.setCreatedOn(createdOn.toString())
         return txn_response
+    }
+
+    def parseDate(String txn_number){
+        SimpleDateFormat format = new SimpleDateFormat(pattern)
+        Date date = format.parse(txn_number)
+        LocalDateTime t = LocalDateTime.parse(txn_number,DateTimeFormatter.ofPattern(pattern))
+        return t
     }
 
     List<AccountTransactions> getAllTransactions(){
